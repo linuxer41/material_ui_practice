@@ -1,25 +1,48 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Button from '@material-ui/core/Button';
 import './App.css';
+import { MenuAppBar } from './standards/navbar';
+import { SwipeableTemporaryDrawer } from './content/drawer'
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      toggle:true
+    }
+    this.switch=this.switch.bind(this)
+  }
+  switch(){
+    this.setState({toggle: !this.state.toggle})
+  }
   render() {
+    const stylesButton = {
+      root: {
+        flexGrow: 1,
+        color: 'yellow'
+      },
+      grow: {
+        flexGrow: 1,
+      },
+      menuButton: {
+        marginLeft: -12,
+        marginRight: 20,
+      },
+    };
+    const stylesDrawer = {
+      list: {
+        width: 250,
+      },
+      fullList: {
+        width: 'auto',
+      },
+    };
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <MenuAppBar classes={stylesButton} color="secondary"/>
+        <Button variant="contained" color="primary" onClick={this.switch}>Welcome Material UI</Button>
+        {this.state.toggle && <SwipeableTemporaryDrawer classes={stylesDrawer}/>}
+
       </div>
     );
   }
